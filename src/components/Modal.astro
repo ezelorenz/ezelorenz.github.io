@@ -1,0 +1,46 @@
+---
+const { id = 'modal', title = '' } = Astro.props
+---
+
+
+<dialog id={id} class="modal" aria-labelledby={`${id}-title`}>
+  <form method="dialog" class="modal-panel">
+    <button type="button" class="modal-close-x" aria-label="Cerrar">×</button>
+    <h3 id={`${id}-title`} class="modal-title">{title}</h3>
+    <div class="modal-body">
+      <slot />
+    </div>
+  </form>
+</dialog>
+
+<style>
+  .modal { padding: 0; border: none; }
+  .modal::backdrop { background: rgba(0,0,0,0.5); }
+  .modal-panel { position:relative; width: min(720px, 92vw); border-radius: 8px; padding: 1.25rem; background: var(--color-bg, white); box-shadow: 0 10px 30px rgba(2,6,23,.6); }
+  .modal-title { margin: 0 0 .5rem 0; font-size: 1.125rem; }
+  .modal-body { margin-bottom: .75rem; color: var(--color-text, #0f172a); }
+  .modal-close-x { position:absolute; right:.5rem; top:.5rem; background: transparent; border: none; color: #000; font-size:1.25rem; line-height:1; cursor:pointer; }
+</style>
+
+<script>
+(function(){
+  document.querySelectorAll('dialog.modal').forEach((dlg) => {
+    const panel = dlg.querySelector('.modal-panel');
+    const closeX = dlg.querySelector('.modal-close-x');
+    closeX && closeX.addEventListener('click', (ev) => { ev.stopPropagation(); dlg.close(); });
+    dlg.addEventListener('keydown', (e) => { if(e.key === 'Escape') dlg.close(); });
+    dlg.addEventListener('click', (e) => { if(e.target === dlg) dlg.close(); });
+
+    try {
+      const origShow = dlg.showModal.bind(dlg);
+      dlg.showModal = function(){ origShow(); dlg.__openedAt = Date.now(); }
+    } catch(err) {}
+
+    document.addEventListener('click', (e) => {
+      if(!dlg.open) return;
+      if(dlg.__openedAt && (Date.now() - dlg.__openedAt) < 120) return;
+      if(panel && !panel.contains(e.target)) dlg.close();
+    }, true);
+  });
+})();
+</script>

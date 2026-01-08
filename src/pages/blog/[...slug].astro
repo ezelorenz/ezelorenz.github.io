@@ -5,6 +5,7 @@ import TopLayout from "@layouts/TopLayout.astro"
 import BottomLayout from "@layouts/BottomLayout.astro"
 import ArticleTopLayout from "@layouts/ArticleTopLayout.astro"
 import ArticleBottomLayout from "@layouts/ArticleBottomLayout.astro"
+import Modal from "@components/Modal.astro"
 
 // Create the static blog pages
 export async function getStaticPaths() {
@@ -25,6 +26,14 @@ const { title, summary } = post.data
   <TopLayout>
     <div class="animate">
       <ArticleTopLayout entry={post}/>
+      {post.slug && post.slug.endsWith('ep1-el-fantasma-en-la-maquina') && (
+        <div class="mt-6 flex justify-end">
+          <button class="px-3 py-2 rounded bg-slate-800 text-white hover:opacity-90" onclick="document.getElementById('analogia-modal').showModal()">Mostrar analogía</button>
+          <Modal id="analogia-modal" title="Analogía: El Fantasma en la Máquina">
+            <p>Imagina una orquesta: el código que escribes es la partitura; el compilador y el CLR son el director que interpreta y coordina; el hardware son los músicos e instrumentos que, siguiendo las instrucciones del director, producen la música. Sin la partitura no hay canción, sin director la orquesta no se sincroniza, y sin músicos no suena nada. Así se relacionan el Software, las capas intermedias y el Hardware.</p>
+          </Modal>
+        </div>
+      )}
     </div>
   </TopLayout>
   <BottomLayout>
