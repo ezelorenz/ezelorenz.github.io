@@ -1,39 +1,90 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content"
-import PageLayout from "@layouts/PageLayout.astro"
-import TopLayout from "@layouts/TopLayout.astro"
-import BottomLayout from "@layouts/BottomLayout.astro"
-import ArticleTopLayout from "@layouts/ArticleTopLayout.astro"
-import ArticleBottomLayout from "@layouts/ArticleBottomLayout.astro"
-import Modal from "@components/Modal.astro"
+import { type CollectionEntry, getCollection } from "astro:content";
+import PageLayout from "@layouts/PageLayout.astro";
+import TopLayout from "@layouts/TopLayout.astro";
+import BottomLayout from "@layouts/BottomLayout.astro";
+import ArticleTopLayout from "@layouts/ArticleTopLayout.astro";
+import ArticleBottomLayout from "@layouts/ArticleBottomLayout.astro";
+import Modal from "@components/Modal.astro";
 
 // Create the static blog pages
 export async function getStaticPaths() {
-	const posts = await getCollection("blog")
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}))
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
 }
 
 // Get the requested post
-type Props = CollectionEntry<"blog">
-const post = Astro.props
-const { title, summary } = post.data
+type Props = CollectionEntry<"blog">;
+const post = Astro.props;
+const { title, summary } = post.data;
 ---
 
 <PageLayout title={title} description={summary}>
   <TopLayout>
     <div class="animate">
-      <ArticleTopLayout entry={post}/>
-      {post.slug && post.slug.endsWith('ep1-el-fantasma-en-la-maquina') && (
-        <div class="mt-6 flex justify-end">
-          <button class="px-3 py-2 rounded bg-slate-800 text-white hover:opacity-90" onclick="document.getElementById('analogia-modal').showModal()">Mostrar analogía</button>
-          <Modal id="analogia-modal" title="Analogía: El Fantasma en la Máquina">
-            <p>Imagina una orquesta: el código que escribes es la partitura; el compilador y el CLR son el director que interpreta y coordina; el hardware son los músicos e instrumentos que, siguiendo las instrucciones del director, producen la música. Sin la partitura no hay canción, sin director la orquesta no se sincroniza, y sin músicos no suena nada. Así se relacionan el Software, las capas intermedias y el Hardware.</p>
-          </Modal>
-        </div>
-      )}
+      <ArticleTopLayout entry={post} />
+      {
+        post.slug && post.slug.endsWith("ep1-el-fantasma-en-la-maquina") && (
+          <div class="mt-6 flex justify-end">
+            <Modal id="analogia-modal" title="La Sinfonía Digital">
+
+              <p>
+                Para entender esta relación con la elegancia que merece,
+                olvidemos los chips por un momento y pensemos en una{" "}
+                <strong>Orquesta Sinfónica</strong>.
+              </p>
+
+              <p>Imagina un gran teatro:</p>
+
+              <ol>
+                <li>
+                  <strong>El Compositor (Tú/Programador):</strong> Eres el genio
+                  creativo. Tienes una melodía en tu mente (la idea del
+                  programa), pero esa melodía es abstracta; nadie más puede
+                  escucharla todavía.
+                </li>
+                <li>
+                  <strong>La Partitura (El Código):</strong> Plasmas tu idea en
+                  papel. No puedes escribir "toquen algo triste"; debes usar un
+                  sistema de notación estricto con pentagramas, claves y notas
+                  específicas (Sintaxis).
+                </li>
+                <li>
+                  <strong>El Director de Orquesta (El Compilador/.NET):</strong>{" "}
+                  Él toma tu partitura, la interpreta y coordina a todos.
+                  Traduce tus símbolos estáticos en gestos dinámicos y órdenes
+                  precisas para cada sección.
+                </li>
+                <li>
+                  <strong>Los Músicos (El Hardware/CPU):</strong> Son quienes
+                  tienen el instrumento físico. Ellos no juzgan la melodía; si
+                  la partitura dice "Do Sostenido", ellos tocan "Do Sostenido".
+                  Ejecutan las instrucciones a una velocidad vertiginosa.
+                </li>
+                <li>
+                  <strong>El Escenario (La Memoria RAM):</strong> Es el espacio
+                  físico limitado donde ocurre la magia en tiempo real. Si el
+                  escenario es muy pequeño, no caben todos los músicos
+                  necesarios para una sinfonía compleja.
+                </li>
+              </ol>
+
+              <p>
+                Si algo sale mal, la tentación es culpar a los músicos (el
+                hardware). Pero ten esto presente: la computadora es{" "}
+                <strong>literal, no inteligente</strong>. Si la sinfonía no
+                suena como esperabas, es porque los músicos tocaron{" "}
+                <em>exactamente</em> lo que escribiste, no lo que{" "}
+                <em>imaginabas</em>. El "bug" es simplemente una discrepancia
+                entre tu intención y tus instrucciones.
+              </p>
+            </Modal>
+          </div>
+        )
+      }
     </div>
   </TopLayout>
   <BottomLayout>
