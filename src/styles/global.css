@@ -184,3 +184,13 @@ article img {
   opacity: 0;
   transform: translateY(10px);
 } */
+
+/* Global inline code styling */
+codeStyle {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  background-color: #f3f4f6;
+  color: #4f4f4f;
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
