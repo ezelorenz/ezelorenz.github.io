@@ -2,86 +2,10 @@
 const { id = 'modal', title = '' } = Astro.props
 ---
 
-
-<dialog
-  id={id}
-  class="modal fixed inset-0 z-50 flex items-center justify-center p-4"
-  aria-labelledby={`${id}-title`}
->
-  <form
-    method="dialog"
-    class="modal-panel relative w-full max-w-3xl rounded-2xl bg-slate-900 p-6 shadow-lg ring-1 ring-black/20 transition-transform"
-  >
-    <button
-      type="button"
-      class="modal-close-x absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-md text-white/90 hover:bg-white/10 focus:outline-none"
-      aria-label="Cerrar"
-    >
-      <span aria-hidden="true">×</span>
-    </button>
-
-    <h3 id={`${id}-title`} class="text-lg font-semibold text-white">{title}</h3>
-
-    <div class="mt-4 prose prose-invert max-w-none text-white">
-      <slot />
-    </div>
-  </form>
-</dialog>
-
-<style>
-  dialog[open] { padding: 0; border: none; }
-  dialog:not([open]) { display: none; }
-  dialog::backdrop { background: rgba(0,0,0,0.5); }
-</style>
-
-<script>
-(function(){
-  document.querySelectorAll('dialog.modal').forEach((dlgEl) => {
-    /** @type {HTMLDialogElement} */
-    const dlg = /** @type {HTMLDialogElement} */ (dlgEl);
-    const anyDlg = /** @type {any} */ (dlg);
-
-    const panel = dlg.querySelector('.modal-panel');
-    const closeX = dlg.querySelector('.modal-close-x');
-    closeX && closeX.addEventListener('click', (ev) => { ev.stopPropagation(); dlg.close(); });
-    dlg.addEventListener('keydown', /** @param {KeyboardEvent} e */ (e) => { if(e.key === 'Escape') dlg.close(); });
-    dlg.addEventListener('click', /** @param {MouseEvent} e */ (e) => { if(e.target === dlg) dlg.close(); });
-
-    try {
-      const origShow = dlg.showModal.bind(dlg);
-      anyDlg.showModal = function(){
-        // Save scroll position and active element so closing can restore them
-        try {
-          anyDlg.__scrollPos = { x: window.scrollX || window.pageXOffset, y: window.scrollY || window.pageYOffset };
-          anyDlg.__prevActive = document.activeElement;
-        } catch (e) {}
-        origShow();
-        anyDlg.__openedAt = Date.now();
-      }
-    } catch(err) {}
-
-    // Restore scroll/focus when the dialog is closed
-    dlg.addEventListener('close', () => {
-      try {
-        // Restore focus first
-        if (anyDlg.__prevActive && typeof anyDlg.__prevActive.focus === 'function') {
-          anyDlg.__prevActive.focus();
-        }
-        // Then restore scroll (use timeout to allow browser default focus scrolling to finish)
-        if (anyDlg.__scrollPos) {
-          setTimeout(() => {
-            window.scrollTo(anyDlg.__scrollPos.x, anyDlg.__scrollPos.y);
-          }, 0);
-        }
-      } catch (e) {}
-    });
-
-    document.addEventListener('click', /** @param {MouseEvent} e */ (e) => {
-      if(!dlg.open) return;
-      if(anyDlg.__openedAt && (Date.now() - anyDlg.__openedAt) < 120) return;
-      const targetNode = /** @type {Node | null} */ (e.target);
-      if(panel && !panel.contains(targetNode)) dlg.close();
-    }, true);
-  });
-})();
-</script>
+<!-- Modal component was removed; render contents inline as a simple container -->
+<div id={id} class="modal-static">
+  {title && <h3 class="text-lg font-semibold mb-2">{title}</h3>}
+  <div class="mt-4">
+    <slot />
+  </div>
+</div>
