@@ -1,3 +1,10 @@
+function fixPreTabindex() {
+  document.querySelectorAll('pre[tabindex]').forEach((p) => p.removeAttribute('tabindex'))
+}
+
+document.addEventListener('DOMContentLoaded', fixPreTabindex)
+document.addEventListener('astro:after-swap', fixPreTabindex)
+
 const codeBlocks = document.querySelectorAll('pre:has(code)');
 
 //add copy btn to every code block on the dom
