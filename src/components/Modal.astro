@@ -36,23 +36,27 @@ const { id = 'modal', title = '' } = Astro.props
 
 <script>
 (function(){
-  document.querySelectorAll('dialog.modal').forEach((dlg) => {
+  document.querySelectorAll('dialog.modal').forEach((dlgEl) => {
+    /** @type {HTMLDialogElement} */
+    const dlg = /** @type {HTMLDialogElement} */ (dlgEl);
+    const anyDlg = /** @type {any} */ (dlg);
+
     const panel = dlg.querySelector('.modal-panel');
     const closeX = dlg.querySelector('.modal-close-x');
     closeX && closeX.addEventListener('click', (ev) => { ev.stopPropagation(); dlg.close(); });
-    dlg.addEventListener('keydown', (e) => { if(e.key === 'Escape') dlg.close(); });
-    dlg.addEventListener('click', (e) => { if(e.target === dlg) dlg.close(); });
+    dlg.addEventListener('keydown', /** @param {KeyboardEvent} e */ (e) => { if(e.key === 'Escape') dlg.close(); });
+    dlg.addEventListener('click', /** @param {MouseEvent} e */ (e) => { if(e.target === dlg) dlg.close(); });
 
     try {
       const origShow = dlg.showModal.bind(dlg);
-      dlg.showModal = function(){
+      anyDlg.showModal = function(){
         // Save scroll position and active element so closing can restore them
         try {
-          dlg.__scrollPos = { x: window.scrollX || window.pageXOffset, y: window.scrollY || window.pageYOffset };
-          dlg.__prevActive = document.activeElement;
+          anyDlg.__scrollPos = { x: window.scrollX || window.pageXOffset, y: window.scrollY || window.pageYOffset };
+          anyDlg.__prevActive = document.activeElement;
         } catch (e) {}
         origShow();
-        dlg.__openedAt = Date.now();
+        anyDlg.__openedAt = Date.now();
       }
     } catch(err) {}
 
@@ -60,22 +64,23 @@ const { id = 'modal', title = '' } = Astro.props
     dlg.addEventListener('close', () => {
       try {
         // Restore focus first
-        if (dlg.__prevActive && typeof dlg.__prevActive.focus === 'function') {
-          dlg.__prevActive.focus();
+        if (anyDlg.__prevActive && typeof anyDlg.__prevActive.focus === 'function') {
+          anyDlg.__prevActive.focus();
         }
         // Then restore scroll (use timeout to allow browser default focus scrolling to finish)
-        if (dlg.__scrollPos) {
+        if (anyDlg.__scrollPos) {
           setTimeout(() => {
-            window.scrollTo(dlg.__scrollPos.x, dlg.__scrollPos.y);
+            window.scrollTo(anyDlg.__scrollPos.x, anyDlg.__scrollPos.y);
           }, 0);
         }
       } catch (e) {}
     });
 
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', /** @param {MouseEvent} e */ (e) => {
       if(!dlg.open) return;
-      if(dlg.__openedAt && (Date.now() - dlg.__openedAt) < 120) return;
-      if(panel && !panel.contains(e.target)) dlg.close();
+      if(anyDlg.__openedAt && (Date.now() - anyDlg.__openedAt) < 120) return;
+      const targetNode = /** @type {Node | null} */ (e.target);
+      if(panel && !panel.contains(targetNode)) dlg.close();
     }, true);
   });
 })();

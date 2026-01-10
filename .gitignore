@@ -19,3 +19,16 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# IDEs/editors
+.vscode/
+.idea/
+
+# Misc
+Thumbs.db
+logs/
+*.log
+
+# Local overrides
+*.local
+.env.*
