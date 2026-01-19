@@ -4,6 +4,7 @@ import Container from "@components/Container.astro";
 import PageLayout from "@layouts/PageLayout.astro";
 import ArrowCard from "@components/ArrowCard.astro";
 import Link from "@components/Link.astro";
+import EmailOctopus from "@components/EmailOctopus.astro";
 import { dateRange } from "@lib/utils";
 import { SITE, HOME, SOCIALS } from "@consts";
 
@@ -41,9 +42,8 @@ const work = await Promise.all(
     <div class="space-y-16">
       <section>
         <article class="space-y-4">
-
           <p class="animate">
-            Si llegaste hasta acá, probablemente sientas que aprender .NET es
+            Si estás leyendo esto, probablemente sientas que aprender .NET es
             como armar un rompecabezas de mil piezas sin la foto de referencia.
             Tranquilo, yo te ayudo a armarlo.
           </p>
@@ -55,8 +55,14 @@ const work = await Promise.all(
 
           <ul class="animate list-disc pl-6">
             <li>🧭 Filtrar el ruido: Separamos lo vital de lo pasajero.</li>
-            <li>🧠 Reducir la carga: Explicaciones claras, sin palabras difíciles porque sí.</li>
-            <li>🎬 Aprender con Flow: Todo está organizado en Temporadas, como en Netflix.</li>
+            <li>
+              🧠 Reducir la carga: Explicaciones claras, sin palabras difíciles
+              porque sí.
+            </li>
+            <li>
+              🎬 Aprender con Flow: Todo está organizado en Temporadas, como en
+              Netflix.
+            </li>
           </ul>
 
           <p class="animate">
@@ -164,6 +170,7 @@ const work = await Promise.all(
           </li>
         </ul>
       </section>
+      <EmailOctopus />
     </div>
   </Container>
 </PageLayout>

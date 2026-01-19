@@ -43,6 +43,11 @@ article {
   @apply prose-headings:text-black prose-headings:dark:text-white;
 }
 
+/* Force Georgia for the main article content (paragraphs, lists, headings, links) */
+article :is(p,li,blockquote,span,div,a,h1,h2,h3,h4,h5,h6) {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 @layer utilities {
   article a {
     @apply font-sans text-current underline underline-offset-2;
