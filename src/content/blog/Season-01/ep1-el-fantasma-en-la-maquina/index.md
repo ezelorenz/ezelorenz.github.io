@@ -82,7 +82,7 @@ En .NET, gestionamos la memoria automáticamente (Garbage Collector), pero si no
 
 ## ¿Qué sigue?
 
-Ya entendemos que el hardware son los músculos y el código es la instrucción. Pero, ¿cómo transformamos exactamente ese texto en inglés (C#) en electricidad pura sin volvernos locos? Necesitamos un traductor experto.
+Ya entendemos que el hardware es la **cocina** y el código es la **receta**. Pero, ¿cómo hacemos que el Chef entienda esa receta si está escrita en C# y él solo entiende electricidad? Necesitamos un traductor experto.
 
-En el próximo episodio: Compiladores y el CLR. Preparate, porque vamos a desmitificar cómo .NET ejecuta tu código.
+En el próximo episodio: **Compiladores y el CLR**. Preparate, porque vamos a desmitificar cómo .NET ejecuta tu código.
 
