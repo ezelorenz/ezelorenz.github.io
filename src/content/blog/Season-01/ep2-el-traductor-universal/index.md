@@ -84,30 +84,6 @@ Dos ventajas prácticas enormes:
 - **Performance inteligente:** El JIT puede optimizar en tiempo de ejecución según las capacidades de la CPU.
 - **Seguridad (Managed Code):** El CLR protege a la aplicación, lanzando Exceptions en lugar de permitir corrupciones de memoria a nivel de SO.
 
-Tu código en IL (lo que genera Roslyn):
-
-Esto es sólo para que veas cómo se representa internamente; no hace falta que lo aprendas de memoria.
-
-```text
-// Pseudo-IL para entender la idea
-IL_0000: ldc.i4.s 30    // Cargar el número 30 en el stack (stack = pila temporal de datos)
-IL_0002: stloc.0        // Guardarlo en memoria local
-IL_0003: ldstr "Tengo " // Cargar el texto
-...
-IL_000A: call System.Console.WriteLine // Llamar a la función del sistema
-```
-
-Lo que hace el JIT al final:
-
-Convierte esas instrucciones IL en código máquina (01010111...) específico para tu chip Intel, AMD, o Apple.
-
-## ¿Por qué me importa esto?
-
-Dos ventajas prácticas enormes:
-
-- **Performance inteligente:** El JIT puede optimizar en tiempo de ejecución según las capacidades de la CPU.
-- **Seguridad (Código administrado):** El CLR protege a la aplicación; si intentás acceder a memoria que no te corresponde, el runtime lanza excepciones (errores controlados) en lugar de permitir que se corrompa el sistema operativo (SO).
-
 ## ¿Qué sigue?
 
 Ya sabemos dónde vive el código (la cocina) y cómo se traduce (partitura). En el próximo episodio: **Tipos de Datos y Memoria (Stack vs Heap)**, donde dejaremos la teoría para empezar a definir la realidad de nuestros programas.
