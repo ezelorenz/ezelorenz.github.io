@@ -1,7 +1,7 @@
 ---
 title: "T1 Ep.4: El Chofer de la Juan B. Justo" 
 summary: "¿Cómo decide tu código qué camino tomar? Dominando los condicionales y la lógica de bifurcación en C#."
-description: "La memoria RAM es un océano caótico. Aprende a domarlo usando Variables y Tipos de Datos para que tu programa deje de tener amnesia."
+description: "Aprendé cómo C# toma decisiones en tiempo real usando condicionales, Pattern Matching y saltos de memoria inteligentes."
 date: "Jan 30 2026"
 draft: false
 tags:

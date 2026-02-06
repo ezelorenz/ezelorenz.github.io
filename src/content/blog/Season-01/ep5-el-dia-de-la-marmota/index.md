@@ -1,7 +1,7 @@
 ---
 title: "T1 Ep.5: La Terminal (El Día de la Marmota - de la película Groundhog Day)" 
 summary: "Dominando los bucles en C#: For, While y Foreach. Cómo repetir tareas sin que tu CPU entre en pánico."
-description: "Explicación de bucles"
+description: "Dominá la repetición: cómo usar bucles en C# para automatizar procesos sin fundir el motor de tu CPU."
 date: "Feb 03 2026"
 draft: false
 tags:
